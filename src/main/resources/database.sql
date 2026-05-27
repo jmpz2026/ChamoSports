@@ -1,5 +1,8 @@
 CREATE TABLE user (
     id LONG PRIMARY KEY AUTO_INCREMENT,
+    rolId LONG,
+    name VARCHAR(20),
+    password VARCHAR(256),
     teamId LONG,
     FOREIGN KEY (teamId) REFERENCES team(id)
 );
