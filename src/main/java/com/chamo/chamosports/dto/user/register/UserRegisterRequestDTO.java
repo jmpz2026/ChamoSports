@@ -1,4 +1,4 @@
-package com.chamo.chamosports.dto.user;
+package com.chamo.chamosports.dto.user.register;
 
 import lombok.Getter;
 

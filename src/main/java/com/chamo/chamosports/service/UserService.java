@@ -3,8 +3,10 @@ package com.chamo.chamosports.service;
 import com.chamo.chamosports.Exception.ResourceExistsException;
 import com.chamo.chamosports.Exception.ResourceNotExistsException;
 import com.chamo.chamosports.dto.ApiResponseDTO;
-import com.chamo.chamosports.dto.user.UserRegisterRequestDTO;
-import com.chamo.chamosports.dto.user.UserRegisterResponseDTO;
+import com.chamo.chamosports.dto.user.login.UserLoginRequestDTO;
+import com.chamo.chamosports.dto.user.login.UserLoginResponseDTO;
+import com.chamo.chamosports.dto.user.register.UserRegisterRequestDTO;
+import com.chamo.chamosports.dto.user.register.UserRegisterResponseDTO;
 import com.chamo.chamosports.entity.TeamEntity;
 import com.chamo.chamosports.constant.MessageConstant;
 import com.chamo.chamosports.entity.UserEntity;
@@ -39,9 +41,28 @@ public class UserService {
         userRegisterResponseDTO.setUserId(userEntity.getId());
         userRegisterResponseDTO.setRol(String.valueOf(UserRol.valueOf(String.valueOf(userRegisterRequestDTO.getRolId()))));
 
-        ApiResponseDTO<UserRegisterResponseDTO> apiResponseDTO = new ApiResponseDTO();
-        apiResponseDTO.setData(userRegisterResponseDTO);
+        ApiResponseDTO<UserRegisterResponseDTO> apiResponseDTO = new ApiResponseDTO<>();
         apiResponseDTO.setMessage(MessageConstant.USER_REGISTERED);
+        apiResponseDTO.setData(userRegisterResponseDTO);
+        apiResponseDTO.setSuccess(true);
+        return apiResponseDTO;
+    }
+
+    public ApiResponseDTO<UserLoginResponseDTO> login(UserLoginRequestDTO userLoginRequestDTO) {
+        if (!userRepository.existsByName(userLoginRequestDTO.getName())) {
+            throw new ResourceExistsException(MessageConstant.USER_NOT_FOUND);
+        }
+
+        UserEntity userEntity = userRepository.findByName(userLoginRequestDTO.getName());
+
+        UserLoginResponseDTO userLoginResponseDTO = new UserLoginResponseDTO();
+        userLoginResponseDTO.setName(userEntity.getName());
+        userLoginResponseDTO.setPassword(userEntity.getPassword());
+        userLoginResponseDTO.setRolId(String.valueOf(UserRol.valueOf(String.valueOf(userEntity.getRolId()))));
+
+        ApiResponseDTO<UserLoginResponseDTO> apiResponseDTO = new ApiResponseDTO<>();
+        apiResponseDTO.setMessage(MessageConstant.USER_LOGGED);
+        apiResponseDTO.setData(userLoginResponseDTO);
         apiResponseDTO.setSuccess(true);
         return apiResponseDTO;
     }
