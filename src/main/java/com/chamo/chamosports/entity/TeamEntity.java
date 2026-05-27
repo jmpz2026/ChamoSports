@@ -3,13 +3,12 @@ package com.chamo.chamosports.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user")
-public class UserEntity {
+@Table(name="team")
+public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teamId")
-    private TeamEntity team;
+    @Column(name = "name", length = 20, unique = true)
+    private String name;
 }
