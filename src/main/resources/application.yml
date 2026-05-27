@@ -1,1 +1,35 @@
-spring.application.name=ChamoSports
+server:
+  port: 8080
+
+spring:
+  application:
+    name: chamoSports
+
+  datasource:
+    url: jdbc:h2:file:./data/chamoSports
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format-sql: true
+
+logging:
+  level:
+    org.springframework: INFO
+    com.myapp: DEBUG
+
+jwt:
+  secret: chamoSportsSecretKey2024XyZ123456789AbCdEfGhIjKlMnOpQrStUvWxYz
+  expiration-ms: 240000
