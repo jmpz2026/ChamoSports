@@ -5,5 +5,7 @@ import com.chamo.chamosports.dto.user.UserStatsResponseDTO;
 import java.util.List;
 
 public class ResultResponseDTO {
-    private List<UserStatsResponseDTO> userStats;
+    private Long teamId;
+    private String teamName;
+    private List<UserStatsResponseDTO> usersStats;
 }
