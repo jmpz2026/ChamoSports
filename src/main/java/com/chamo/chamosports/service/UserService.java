@@ -1,5 +1,6 @@
 package com.chamo.chamosports.service;
 
+import com.chamo.chamosports.Exception.CapacityExceededException;
 import com.chamo.chamosports.Exception.ResourceExistsException;
 import com.chamo.chamosports.Exception.ResourceNotExistsException;
 import com.chamo.chamosports.dto.ApiResponseDTO;
@@ -21,6 +22,8 @@ public class UserService {
     private UserRepository userRepository;
     private TeamRepository teamRepository;
 
+    private Long MAX_MEMBERS = 7L;
+
     public ApiResponseDTO<UserRegisterResponseDTO> register(UserRegisterRequestDTO userRegisterRequestDTO) {
         if (userRepository.existsByName(userRegisterRequestDTO.getName())) {
             throw new ResourceExistsException(MessageConstant.USER_ALREADY_EXISTS);
@@ -29,6 +32,10 @@ public class UserService {
         TeamEntity teamEntity = teamRepository.findById(userRegisterRequestDTO.getTeamId()).orElseThrow(
                 () -> new ResourceNotExistsException(MessageConstant.TEAM_NOT_FOUND)
         );
+
+        if (teamRepository.findAllById(userRegisterRequestDTO.getTeamId()) > MAX_MEMBERS){
+            throw new CapacityExceededException(MessageConstant.TEAM_IS_FULL);
+        };
 
         UserEntity userEntity = new UserEntity();
         userEntity.setTeam(teamEntity);

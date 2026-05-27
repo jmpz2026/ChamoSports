@@ -1,25 +1,33 @@
 CREATE TABLE user (
-    id LONG PRIMARY KEY AUTO_INCREMENT,
-    rolId LONG,
-    name VARCHAR(20),
-    password VARCHAR(256),
-    teamId LONG,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    rolId INT NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    password VARCHAR(256) NOT NULL,
+    teamId INT NOT NULL,
     FOREIGN KEY (teamId) REFERENCES team(id)
 );
 
 CREATE TABLE team (
-    id LONG PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) UNIQUE
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20) UNIQUE NOT NULL
+);
+
+CREATE TABLE training (
+    id INT PRIMARY KEY,
+    teamId INT NOT NULL,
+    date DATETIME NOT NULL,
+    FOREIGN KEY (teamId) REFERENCES team(id)
 );
 
 CREATE TABLE result (
-    id LONG PRIMARY KEY,
-    userId LONG,
-    teamId LONG,
-    powerShoot LONG,
-    speedShoot LONG,
-    effectiveShoot LONG,
-    totalShoot LONG,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    trainingId INT NOT NULL,
+    userId INT NOT NULL,
+    powerShoot INT NOT NULL,
+    speedShoot INT NOT NULL,
+    effectiveShoot INT NOT NULL,
+    totalShoot INT NOT NULL,
+    FOREIGN KEY (trainingId) REFERENCES training(id),
     FOREIGN KEY (userId) REFERENCES user(id),
-    FOREIGN KEY (teamId) REFERENCES team(id)
-)
+    UNIQUE(trainingId, userId)
+);

@@ -6,6 +6,7 @@ public class MessageConstant {
     public static String TEAM_ALREADY_EXISTS = "Team Already Exists";
     public static String TEAM_REGISTERED = "Team Registered";
     public static String TEAM_LOGGED = "Team Logged";
+    public static String TEAM_IS_FULL = "Team is Full";
 
     // USER
     public static String USER_ALREADY_EXISTS = "User Already Exists";
