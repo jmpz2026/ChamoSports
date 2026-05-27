@@ -15,6 +15,9 @@ public class MessageConstant {
     public static String USER_LOGGED = "User Logged Successfully";
 
     // RESULT
+    public static String RESULT_IS_NOT_ENOUGH = "The team does not have enough results";
 
-    //
+    // TRAINING
+
+    // OTHERS
 }
