@@ -16,6 +16,8 @@ public class MessageConstant {
 
     // RESULT
     public static String RESULT_IS_NOT_ENOUGH = "The team does not have enough results";
+    public static String RESULT_GET_SUCCESS = "The result is successfully obtained";
+    public static String RESULT_GET_FAILURE = "Get Failure";
 
     // TRAINING
 
