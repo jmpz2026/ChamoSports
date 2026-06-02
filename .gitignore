@@ -33,3 +33,9 @@ build/
 .vscode/
 /.mvn
 .mvn
+
+### IA ###
+.claude
+
+### PROJECT ###
+data
