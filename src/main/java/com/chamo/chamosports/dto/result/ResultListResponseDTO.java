@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ResultListResponseDTO {
-    private Long teamId;
-    private String teamName;
+    private Long trainingId;
     private List<UserStatsResponseDTO> usersStats;
 }

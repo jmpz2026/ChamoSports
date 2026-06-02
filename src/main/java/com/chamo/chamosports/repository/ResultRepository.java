@@ -10,6 +10,4 @@ import java.util.List;
 @Repository
 public interface ResultRepository extends JpaRepository<ResultEntity, Long> {
     List<ResultEntity> findByTrainingId(Long trainingId);
-
-    Long training(TrainingEntity training);
 }

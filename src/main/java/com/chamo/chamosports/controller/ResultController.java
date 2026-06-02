@@ -2,7 +2,8 @@ package com.chamo.chamosports.controller;
 
 import com.chamo.chamosports.dto.ApiResponseDTO;
 import com.chamo.chamosports.dto.result.ResultListRequestDTO;
-import com.chamo.chamosports.dto.result.ResultListResponseDTO;
+import com.chamo.chamosports.dto.result.ResultListTrainingRequestDTO;
+import com.chamo.chamosports.dto.result.ResultSummaryResponseDTO;
 import com.chamo.chamosports.service.ResultService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,15 @@ public class ResultController {
 
     private final ResultService resultService;
 
-    @GetMapping
-    public ResponseEntity<ApiResponseDTO<ResultListResponseDTO>> getResultList(@RequestBody ResultListRequestDTO resultListRequestDTO) {
-        ApiResponseDTO<ResultListResponseDTO> apiResponseDTO = resultService.getResultList(resultListRequestDTO);
+    @GetMapping("/team")
+    public ResponseEntity<ApiResponseDTO<ResultSummaryResponseDTO>> getResultListByTeamId(@RequestBody ResultListRequestDTO resultListRequestDTO) {
+        ApiResponseDTO<ResultSummaryResponseDTO> apiResponseDTO = resultService.getResultListByTeamId(resultListRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponseDTO);
+    }
+
+    @GetMapping("/training")
+    public ResponseEntity<ApiResponseDTO<ResultSummaryResponseDTO>> getResultListByTrainingId(@RequestBody ResultListTrainingRequestDTO resultListTrainingRequestDTO) {
+        ApiResponseDTO<ResultSummaryResponseDTO> apiResponseDTO = resultService.getResultListByTrainingId(resultListTrainingRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponseDTO);
     }
 }
