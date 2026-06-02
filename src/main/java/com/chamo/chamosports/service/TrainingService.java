@@ -42,7 +42,7 @@ public class TrainingService {
     private Float WEIGHT_SPEED = 0.3F;
     private Float WEIGHT_EFFECTIVE = 0.5F;
 
-    public ApiResponseDTO<TrainingRegisterResponseDTO> register(TrainingRegisterRequestDTO trainingRegisterRequestDTO) {
+    public ApiResponseDTO<TrainingRegisterResponseDTO> registerTraining(TrainingRegisterRequestDTO trainingRegisterRequestDTO) {
         TeamEntity teamEntity = teamRepository.findById(trainingRegisterRequestDTO.getTeamId()).orElseThrow(
                 () -> new ResourceNotExistsException(MessageConstant.TEAM_NOT_FOUND)
         );

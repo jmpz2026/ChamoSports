@@ -19,7 +19,7 @@ public class TeamService {
         this.teamRepository = teamRepository;
     }
 
-    public ApiResponseDTO<TeamRegisterResponseDTO> register(TeamRegisterRequestDTO teamRegisterRequestDTO) {
+    public ApiResponseDTO<TeamRegisterResponseDTO> registerTeam(TeamRegisterRequestDTO teamRegisterRequestDTO) {
         if (teamRepository.existsByName(teamRegisterRequestDTO.getName())){
             throw new ResourceExistsException(MessageConstant.TEAM_ALREADY_EXISTS);
         }

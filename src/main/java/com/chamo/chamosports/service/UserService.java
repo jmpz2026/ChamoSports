@@ -14,7 +14,6 @@ import com.chamo.chamosports.entity.UserEntity;
 import com.chamo.chamosports.enums.UserRol;
 import com.chamo.chamosports.repository.TeamRepository;
 import com.chamo.chamosports.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,12 +21,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TeamRepository teamRepository;
+    private final JwtService jwtService;
 
     private Long MAX_MEMBERS = 7L;
 
-    public UserService(UserRepository userRepository, TeamRepository teamRepository) {
+    public UserService(UserRepository userRepository, TeamRepository teamRepository, JwtService jwtService) {
         this.userRepository = userRepository;
         this.teamRepository = teamRepository;
+        this.jwtService = jwtService;
     }
 
     public ApiResponseDTO<UserRegisterResponseDTO> register(UserRegisterRequestDTO userRegisterRequestDTO) {
@@ -76,6 +77,7 @@ public class UserService {
         userLoginResponseDTO.setName(userEntity.getName());
         userLoginResponseDTO.setPassword(userEntity.getPassword());
         userLoginResponseDTO.setRol(rolName);
+        userLoginResponseDTO.setToken(jwtService.generateToken(userEntity.getId(),userEntity.getRolId(),userEntity.getName()));
 
         ApiResponseDTO<UserLoginResponseDTO> apiResponseDTO = new ApiResponseDTO<>();
         apiResponseDTO.setMessage(MessageConstant.USER_LOGGED);

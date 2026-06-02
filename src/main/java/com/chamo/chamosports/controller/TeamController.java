@@ -3,6 +3,8 @@ package com.chamo.chamosports.controller;
 import com.chamo.chamosports.dto.ApiResponseDTO;
 import com.chamo.chamosports.dto.team.TeamRegisterRequestDTO;
 import com.chamo.chamosports.dto.team.TeamRegisterResponseDTO;
+import com.chamo.chamosports.enums.UserRol;
+import com.chamo.chamosports.security.RequiresRole;
 import com.chamo.chamosports.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,10 @@ public class TeamController {
 
     private final TeamService teamService;
 
+    @RequiresRole({UserRol.USER, UserRol.ADMIN})
     @PostMapping("/register")
-    public ResponseEntity<ApiResponseDTO<TeamRegisterResponseDTO>> registerUser(@RequestBody TeamRegisterRequestDTO teamRegisterRequestDTO) {
-        ApiResponseDTO<TeamRegisterResponseDTO> apiResponseDTO = teamService.register(teamRegisterRequestDTO);
+    public ResponseEntity<ApiResponseDTO<TeamRegisterResponseDTO>> registerTeam(@RequestBody TeamRegisterRequestDTO teamRegisterRequestDTO) {
+        ApiResponseDTO<TeamRegisterResponseDTO> apiResponseDTO = teamService.registerTeam(teamRegisterRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponseDTO);
     }
 }
