@@ -31,3 +31,9 @@ CREATE TABLE IF NOT EXISTS result (
     FOREIGN KEY (userId) REFERENCES app_user(id),
     UNIQUE(trainingId, userId)
 );
+
+MERGE INTO team (id,name) VALUES (1,'admin');
+MERGE INTO app_user (id,rolId,name,password,teamId) VALUES (1,2,'admin','admin',1);
+
+ALTER TABLE team ALTER COLUMN id RESTART WITH 2;
+ALTER TABLE app_user ALTER COLUMN id RESTART WITH 2;

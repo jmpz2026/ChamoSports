@@ -33,7 +33,6 @@ public class ResultService {
     private TeamRepository teamRepository;
 
     private Long MINIMUM_TRAININGS = 3L;
-    private Long MAXIMUM_TRAININGS = 3L;
 
     public ResultService(ResultRepository resultRepository, TrainingRepository trainingRepository, TeamRepository teamRepository, UserRepository userRepository) {
         this.resultRepository = resultRepository;
@@ -53,7 +52,7 @@ public class ResultService {
         List<TrainingEntity> trainingEntityList = trainingRepository.findByTeamIdAndDateBetween(resultListRequestDTO.getTeamId(),start,end);
 
         long trainingsDoes = (long) trainingEntityList.size();
-        if(trainingsDoes < MINIMUM_TRAININGS || trainingsDoes > MAXIMUM_TRAININGS){
+        if(trainingsDoes < MINIMUM_TRAININGS){
             throw new CapacityExceededException(MessageConstant.RESULT_INCORRECT_SIZE);
         };
 
