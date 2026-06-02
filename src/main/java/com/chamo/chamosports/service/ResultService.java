@@ -30,6 +30,12 @@ public class ResultService {
     private Long MINIMUM_TRAININGS = 3L;
     private Long MAXIMUM_TRAININGS = 3L;
 
+    public ResultService(ResultRepository resultRepository, TrainingRepository trainingRepository, TeamRepository teamRepository) {
+        this.resultRepository = resultRepository;
+        this.trainingRepository = trainingRepository;
+        this.teamRepository = teamRepository;
+    }
+
     public ApiResponseDTO<ResultListResponseDTO> getResultList(ResultListRequestDTO resultListRequestDTO) {
         LocalDateTime start = LocalDateTime.now().minusDays(7);
         LocalDateTime end = LocalDateTime.now();
@@ -42,7 +48,7 @@ public class ResultService {
 
         long trainingsDoes = (long) trainingEntityList.size();
         if(trainingsDoes < MINIMUM_TRAININGS || trainingsDoes > MAXIMUM_TRAININGS){
-            throw new CapacityExceededException(MessageConstant.RESULT_IS_NOT_ENOUGH);
+            throw new CapacityExceededException(MessageConstant.RESULT_INCORRECT_SIZE);
         };
 
         List<Optional<ResultEntity>> resultEntityList = new ArrayList<>();

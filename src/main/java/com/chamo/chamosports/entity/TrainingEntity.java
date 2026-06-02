@@ -12,7 +12,8 @@ import java.util.List;
 @Entity
 @Table(name="training")
 public class TrainingEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

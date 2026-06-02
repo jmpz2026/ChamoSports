@@ -16,10 +16,17 @@ public class MessageConstant {
 
     // RESULT
     public static String RESULT_IS_NOT_ENOUGH = "The team does not have enough results";
+    public static String RESULT_INCORRECT_SIZE = "Result Incorrect Size";
     public static String RESULT_GET_SUCCESS = "The result is successfully obtained";
     public static String RESULT_GET_FAILURE = "Get Failure";
 
     // TRAINING
+    public static String TRAINING_NOT_ENOUGH = "Training Not Enough";
+    public static String TRAINING_MEMBERS_INCORRECT_SIZE = "Training Incorrect Size";
+    public static String TRAINING_REGISTERED = "Training Registered Successfully";
+
+    // ROL
+    public static String ROL_NOT_EXISTS = "Rol Not Exists";
 
     // OTHERS
 }

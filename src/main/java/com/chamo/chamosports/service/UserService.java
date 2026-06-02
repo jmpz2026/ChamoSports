@@ -14,15 +14,21 @@ import com.chamo.chamosports.entity.UserEntity;
 import com.chamo.chamosports.enums.UserRol;
 import com.chamo.chamosports.repository.TeamRepository;
 import com.chamo.chamosports.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private TeamRepository teamRepository;
+    private final UserRepository userRepository;
+    private final TeamRepository teamRepository;
 
     private Long MAX_MEMBERS = 7L;
+
+    public UserService(UserRepository userRepository, TeamRepository teamRepository) {
+        this.userRepository = userRepository;
+        this.teamRepository = teamRepository;
+    }
 
     public ApiResponseDTO<UserRegisterResponseDTO> register(UserRegisterRequestDTO userRegisterRequestDTO) {
         if (userRepository.existsByName(userRegisterRequestDTO.getName())) {
@@ -33,9 +39,11 @@ public class UserService {
                 () -> new ResourceNotExistsException(MessageConstant.TEAM_NOT_FOUND)
         );
 
-        if (teamRepository.findAllById(userRegisterRequestDTO.getTeamId()) > MAX_MEMBERS){
+        if (userRepository.countByTeamId(userRegisterRequestDTO.getTeamId()) >= MAX_MEMBERS){
             throw new CapacityExceededException(MessageConstant.TEAM_IS_FULL);
         };
+
+        String rolName = UserRol.getById(userRegisterRequestDTO.getRolId());
 
         UserEntity userEntity = new UserEntity();
         userEntity.setTeam(teamEntity);
@@ -46,7 +54,7 @@ public class UserService {
 
         UserRegisterResponseDTO userRegisterResponseDTO = new UserRegisterResponseDTO();
         userRegisterResponseDTO.setUserId(userEntity.getId());
-        userRegisterResponseDTO.setRol(String.valueOf(UserRol.valueOf(String.valueOf(userRegisterRequestDTO.getRolId()))));
+        userRegisterResponseDTO.setRol(rolName);
 
         ApiResponseDTO<UserRegisterResponseDTO> apiResponseDTO = new ApiResponseDTO<>();
         apiResponseDTO.setMessage(MessageConstant.USER_REGISTERED);
@@ -62,10 +70,12 @@ public class UserService {
 
         UserEntity userEntity = userRepository.findByName(userLoginRequestDTO.getName());
 
+        String rolName = UserRol.getById(userEntity.getRolId());
+
         UserLoginResponseDTO userLoginResponseDTO = new UserLoginResponseDTO();
         userLoginResponseDTO.setName(userEntity.getName());
         userLoginResponseDTO.setPassword(userEntity.getPassword());
-        userLoginResponseDTO.setRolId(String.valueOf(UserRol.valueOf(String.valueOf(userEntity.getRolId()))));
+        userLoginResponseDTO.setRol(rolName);
 
         ApiResponseDTO<UserLoginResponseDTO> apiResponseDTO = new ApiResponseDTO<>();
         apiResponseDTO.setMessage(MessageConstant.USER_LOGGED);

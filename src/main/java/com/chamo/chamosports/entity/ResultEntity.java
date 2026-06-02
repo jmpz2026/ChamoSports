@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name="result")
 public class ResultEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -30,5 +31,5 @@ public class ResultEntity {
     private Long effectiveShoot;
 
     @Column(nullable = false)
-    private Long totalShoot;
+    private Float totalShoot;
 }

@@ -6,7 +6,8 @@ spring:
     name: chamoSports
 
   datasource:
-    url: jdbc:h2:file:./data/chamoSports
+    # AutoServer es para conexion simultanea.
+    url: jdbc:h2:file:./data/chamoSports;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
@@ -19,6 +20,9 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
+      # Esto es para que se usen los mismos nombres de variables que yo defino, hp hibernate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     defer-datasource-initialization: true
     properties:
